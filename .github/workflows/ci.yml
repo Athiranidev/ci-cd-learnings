@@ -12,6 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Check environment
+        run: |
+          echo "Checking runner environment..."
+          pwd
+          ls -la
 
       - name: Run CI test
         run: ./test.sh
