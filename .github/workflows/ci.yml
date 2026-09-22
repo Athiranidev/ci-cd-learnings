@@ -20,4 +20,7 @@ jobs:
           ls -la
 
       - name: Run CI test
-        run: ./test.sh
+        run: exit 1
+
+      - name: Build
+        run: echo "Build started"
