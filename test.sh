@@ -1,11 +1,7 @@
 #!/bin/bash
 
-echo "Running CI test..."
+echo "Installing dependencies..."
+python3 -m pip install -r requirements.txt
 
-if [ 2 -eq 2 ]; then
-    echo "Test passed!"
-    exit 0
-else
-    echo "Test failed!"
-    exit 1
-fi
+echo "Running tests..."
+pytest
