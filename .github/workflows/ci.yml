@@ -26,4 +26,13 @@ jobs:
         run: pytest
 
       - name: Build
-        run: echo "Build started"
+        run: |
+          mkdir -p build
+          echo "CI build successful" > build/build.txt
+          cat build/build.txt
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-build
+          path: build/
