@@ -25,6 +25,17 @@ jobs:
       - name: Show environment
         run: echo "Running in $APP_ENV environment"
 
+      - name: Check secret
+        run: |
+          if [ -n "$DEMO_SECRET" ]; then
+            echo "Secret is available"
+          else
+            echo "Secret is missing"
+            exit 1
+          fi
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+
       - name: Install dependencies
         run: python3 -m pip install -r requirements.txt
 
