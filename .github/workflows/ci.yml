@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      APP_ENV: testing
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,6 +21,9 @@ jobs:
           echo "Checking runner environment..."
           pwd
           ls -la
+
+      - name: Show environment
+        run: echo "Running in $APP_ENV environment"
 
       - name: Install dependencies
         run: python3 -m pip install -r requirements.txt
