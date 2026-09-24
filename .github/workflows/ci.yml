@@ -42,6 +42,10 @@ jobs:
       - name: Run tests
         run: pytest
 
+      - name: Conditional message
+        if: success()
+        run: echo "Tests succeeded, so this condition is true"
+
       - name: Build
         run: |
           mkdir -p build
