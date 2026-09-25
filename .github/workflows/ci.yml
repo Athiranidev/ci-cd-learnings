@@ -46,14 +46,7 @@ jobs:
         if: success()
         run: echo "Tests succeeded, so this condition is true"
 
-      - name: Build
-        run: |
-          mkdir -p build
-          echo "CI build successful" > build/build.txt
-          cat build/build.txt
+      - name: Build Docker image
+        run: docker build -t ci-python-app .
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-build
-          path: build/
+      
