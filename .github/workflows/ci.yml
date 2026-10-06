@@ -89,3 +89,24 @@ jobs:
 
       - name: Push Docker image
         run: docker push athiranidev/ci-python-app:latest
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo docker pull athiranidev/ci-python-app:latest
+            sudo docker stop ci-cd-flask-app || true
+            sudo docker rm ci-cd-flask-app || true
+            sudo docker run -d \
+              --name ci-cd-flask-app \
+              -p 5000:5000 \
+              athiranidev/ci-python-app:latest
